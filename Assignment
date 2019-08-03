@@ -1,0 +1,34 @@
+pragma solidity >=0.4.22 <0.6.0;
+
+contract RoomAllocation {
+    
+    struct Room {
+        bytes32 roomName;
+        string occupantName;
+        bool isfree;
+    }
+    
+    Room[] public rooms;
+    
+    constructor(bytes32[] memory _rooms) public {
+        for(uint i =0;i<_rooms.length;i++){
+            rooms.push(Room({roomName:_rooms[i],occupantName:"",isfree:true}));
+        }
+    }
+    function assignRoom(bytes32 _roomName, string memory patientName) public returns(string memory){
+    	//complete the function
+        for(uint i=0;i<rooms.length;i++){
+            if(rooms[i].roomName == _roomName){
+                if(rooms[i].isfree == true) {
+                    rooms[i].occupantName = patientName;
+                    rooms[i].isfree = false;
+                    return "assigned";
+                }
+                else {
+                    return "room occupied";
+                }
+            }
+        }
+           	 	
+    }
+}
